@@ -14,11 +14,12 @@ fn main()  {
     logo();
     child = Command::new("sleep").arg("0.4").spawn().unwrap();
     result = child.wait().unwrap();
-    println!("What would you like to do?");
+    selector();
 
 }
 
 fn boot() {
+    print!("\x1B[2J\x1B[1;1H");
     let mut child:Child;
     let mut result:ExitStatus; 
     println!("PROGRAM STARTING UP");
@@ -59,7 +60,7 @@ fn logo() {
             } else{
                 print!("@");
             }
-            let mut child = Command::new("sleep").arg("0.01").spawn().unwrap();
+            let mut child = Command::new("sleep").arg("0.001").spawn().unwrap();
             let result = child.wait().unwrap();
         }
         println!("");
@@ -77,16 +78,19 @@ fn logo() {
     narrator.speak("Welcome to Projext");
 }
 fn selector() -> std::io::Result<()>{
-    let items = vec!["Launch android phone (Requires android studio)", "Launch Iphone phone (Requires system running MacOS and Xcode)", "Make website (Requires Docker)", "Make AI"];
+    let items = vec!["Launch android phone (Requires android studio)", "Launch Iphone (Requires system running MacOS and Xcode)", "Make website (Requires Docker)", "Make AI"];
     let selection = Select::with_theme(&ColorfulTheme::default())
         .items(&items)
         .default(0)
+        .with_prompt("What do you want to do?")
         .interact_on_opt(&Term::stderr())?;
+        
 
     match selection {
         Some(index) => println!("User selected item : {}", items[index]),
-        None => println!("User did not select anything")
+        None => println!("User did not select anything")  
     }
+
 
     Ok(())
 }
