@@ -20,7 +20,7 @@ fn main()  {
     result = child.wait().unwrap();
     selector();
     if Confirm::with_theme(&ColorfulTheme::default())
-        .with_prompt("Do you want to continue using selector or end program?")
+        .with_prompt("Do you want to continue using selector?")
         .interact()
         .unwrap()
     {
@@ -134,15 +134,7 @@ fn feet() {
 
 fn android() {
     let mut command;
-
-    command = shell("cd ~/Library/Android/sdk/emulator");
-    
-    command.stdout(Stdio::piped());
-
-    command.execute_output().unwrap();
-
-    command = shell("./emulator -avd Pixel_6_Pro_API_UpsideDownCake");
-    
+    command = shell("cd ~/Library/Android/sdk/emulator && ./emulator -avd Pixel_6_Pro_API_UpsideDownCake");
     command.stdout(Stdio::piped());
 
     command.execute_output().unwrap();
