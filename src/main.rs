@@ -19,19 +19,16 @@ fn main()  {
     child = Command::new("sleep").arg("0.4").spawn().unwrap();
     result = child.wait().unwrap();
     selector();
-    if Confirm::with_theme(&ColorfulTheme::default())
+    while Confirm::with_theme(&ColorfulTheme::default())
         .with_prompt("Do you want to continue using selector?")
         .interact()
         .unwrap()
     {
         println!("Looks like you want to continue using selector");
         selector();
-        goodbye()
 
-    } else {
-        println!("alright then :(");
-        goodbye();
     }
+    goodbye()
     
 }
 
@@ -104,6 +101,9 @@ fn selector() {
         "Launch Iphone",
         "Launch Android phone",
         "show Feet pic",
+        "System Info ",
+        "The matrix",
+        "Wifi speed test"
     ];
     let selection = Select::with_theme(&ColorfulTheme::default())
         .with_prompt("What do you want to do?")
@@ -119,6 +119,9 @@ fn selector() {
         0 => iphone(),
         1 => android(),
         2 => feet(),
+        3 => systinfo(),
+        4 => matrix(),
+        5 => speedtest(),
         _ => print!("You didn't select anything"),
     }
 
@@ -133,8 +136,39 @@ fn feet() {
 }
 
 fn android() {
-    let mut command;
-    command = shell("cd ~/Library/Android/sdk/emulator && ./emulator -avd Pixel_6_Pro_API_UpsideDownCake");
+    let mut command ;
+    
+    command = shell("cd scripts && sh android.sh");
+    command.stdout(Stdio::piped());
+
+    command.execute_output().unwrap();
+
+}
+
+fn systinfo() {
+    let mut command ;
+    
+    command = shell("cd scripts && sh neofetch.sh");
+    command.stdout(Stdio::piped());
+
+    command.execute_output().unwrap();
+
+}
+
+fn speedtest() {
+    let mut command ;
+    
+    command = shell("cd scripts && sh speedtest.sh");
+    command.stdout(Stdio::piped());
+
+    command.execute_output().unwrap();
+
+}
+
+fn matrix() {
+    let mut command ;
+    
+    command = shell("cd scripts && sh matrix.sh");
     command.stdout(Stdio::piped());
 
     command.execute_output().unwrap();
