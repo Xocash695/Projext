@@ -1215,6 +1215,7 @@ dependencies = [
  "dialoguer",
  "execute",
  "indicatif",
+ "lazy_static",
  "term_size",
  "tts_rust",
 ]
