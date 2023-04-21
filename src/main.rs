@@ -9,15 +9,19 @@ use dialoguer::{ theme::ColorfulTheme, Select};
 use execute::{shell, Execute};
 use indicatif::ProgressBar;
 use tts_rust::{languages::Languages, tts::GTTSClient};
+use chrono::{Datelike, Timelike, Local};
+use std::time::{Duration, Instant};
 static mut NAME: &'static str = "";
 
 
-
 fn main() {
+    let start = Instant::now();
     let mut child;
     let mut result;
     boot();
     logo();
+    let duration = start.elapsed();
+    println!("BOOT DURATION {:?}", duration);
     child = Command::new("sleep").arg("0.4").spawn().unwrap();
     result = child.wait().unwrap();
     let input: String = Input::with_theme(&ColorfulTheme::default())
@@ -40,10 +44,19 @@ fn main() {
 
 
 fn boot() {
+    let now = Local::now();
+    let (is_pm, hour) = now.hour12();
     print!("\x1B[2J\x1B[1;1H");
     let mut child: Child;
     let mut result: ExitStatus;
     println!("PROGRAM STARTING UP");
+    println!(
+        "DATE: {:02}:{:02}:{:02} {}",
+        hour,
+        now.minute(),
+        now.second(),
+        if is_pm { "PM" } else { "AM" }
+    );
     let bar = ProgressBar::new(100);
     for _ in 0..100 {
         bar.inc(1);
@@ -58,7 +71,7 @@ fn boot() {
     println!("Built by Xocash695");
 
     if let Some((w, h)) = term_size::dimensions() {
-        println!("Width: {}\nHeight: {}", w, h);
+        println!("Terminal: Width: {} Height: {}", w, h);
         child = Command::new("sleep").arg("0.4").spawn().unwrap();
         result = child.wait().unwrap();
     } else {
@@ -85,19 +98,19 @@ fn logo() {
         }
         println!("");
     }
-    let mut narrator: GTTSClient = GTTSClient {
-        volume: 1.0,
-        language: Languages::English, // use the Languages enum
-        tld: "com",
-    };
-    let message = "Welcome to Projext ";
-    narrator.speak(message);
+    let message = "Welcome to Projext";
     say(Options {
         text: String::from(message),
         font: Fonts::FontTiny,
         ..Options::default()
     });
- 
+    let mut narrator: GTTSClient = GTTSClient {
+        volume: 1.0,
+        language: Languages::English, // use the Languages enum
+        tld: "com",
+    };
+    narrator.speak(message);
+
    
   
 }
@@ -176,16 +189,17 @@ fn finselct(num: usize) {
 }
 
 fn goodbye() {
-    let mut narrator: GTTSClient = GTTSClient {
-        volume: 1.0,
-        language: Languages::English, // use the Languages enum
-        tld: "com",
-    };
     let message = "Thank you and Goodbye";
-    narrator.speak(message);
     say(Options {
         text: String::from(message),
         font: Fonts::FontTiny,
         ..Options::default()
     });
+    let mut narrator: GTTSClient = GTTSClient {
+        volume: 1.0,
+        language: Languages::English, // use the Languages enum
+        tld: "com",
+    };
+    narrator.speak(message);
+
 }
