@@ -1,7 +1,6 @@
 # Projext
 
-This fun new project to show off my rust programming skills by using cool font, text to speech and other things. Note this program currently only works on MacOS because it requires Xcode and runs a shell script. 
-
+This fun new project to show off my rust programming skills by using cool font, text to speech and other things. 
 Requirments:
 - MacOS ( has only been tested verison MacOS 13)
 - Xcode with a device simulator (ex iphone 14 pro simulator)
