@@ -1,3 +1,3 @@
 osascript -e 'tell app "Terminal"                                       
-    do script "cat /Users/akash/Source/projext/feet.txt"
+    do script "afplay /Users/akash/Source/projext/music/nah.mp3"
 end tell'
