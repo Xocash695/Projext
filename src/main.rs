@@ -129,7 +129,7 @@ fn logo() {
         for j in 1..20 {
             print!(" . ");
             if j % 2 == 0 {
-                print!("*");
+                print!("{}", "*".cyan());
             } else {
                 print!("{}", "@".purple());
             }
@@ -201,10 +201,10 @@ fn selector() {
 
 fn finselct(num: usize) {
     let sentance = [
-        "The creator of this project looks amazing as he always does",
-        "I think your already aware of the hardware this computer is running, but okay",
-        "you already have a phone you don't need another but okay",
-        "you already have a phone you don't need another but okay",
+        "The creator of this project Akash looks amazing as he always does",
+        "I'm belive I'm being run on some excellent harware if I do say myself",
+        "you probably already have a phone you don't need another but okay",
+        "you probably already have a phone you don't need another but okay",
         "I think I'm faster than your wifi",
         "I'm hacking into the matrix for you",
         "Your sure to love Nah by Akash Kallumkal",
@@ -268,5 +268,5 @@ fn goodbye() {
     // The sound plays in a separate audio thread,
     // so we need to keep the main thread alive while it's playing.
     std::thread::sleep(std::time::Duration::from_secs(10));
-    println!("SHUTDOWN: {}", "OK".green())
+    println!("SHUTDOWN: {}", "OK".green());
 }
