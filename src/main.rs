@@ -200,6 +200,7 @@ fn selector() {
 }
 
 fn finselct(num: usize) {
+    let scriptpath = "cd ~/Source/projext/scripts"; // change path to where scripts folder is located
     let sentance = [
         "The creator of this project Akash looks amazing as he always does",
         "I'm belive I'm being run on some excellent harware if I do say myself",
@@ -214,14 +215,14 @@ fn finselct(num: usize) {
         "The system monitor is pretty cool",
     ];
     let commands = [
-        "cd ~/Source/projext/scripts && sh author.sh",
-        "cd ~/Source/projext/scripts && sh neofetch.sh",
-        "cd ~/Source/projext/scripts && sh android.sh",
+        "sh author.sh",
+        "sh neofetch.sh",
+        "sh android.sh",
         "open -a Simulator --args -CurrentDeviceUDID 936604F6-449D-4373-B8AD-94C7D08A7777",
-        "cd ~/Source/projext/scripts && sh speedtest.sh",
-        "cd ~/Source/projext/scripts && sh matrix.sh",
-        "cd  ~/Source/projext/scripts && sh rap.sh",
-        "cd  ~/Source/projext/scripts && sh shutdown.sh",
+        "sh speedtest.sh",
+        "sh matrix.sh",
+        "sh rap.sh",
+        "sh shutdown.sh",
         "open /Applications/DiffusionBee.app",
         "open https://github.com/Xocash695",
         "open /System/Applications/Utilities/'Activity Monitor'.app",
@@ -239,7 +240,7 @@ fn finselct(num: usize) {
 
     let mut command;
 
-    command = shell(commands[num]);
+    command = shell([scriptpath, commands[num]].join("\n"));
 
     command.stdout(Stdio::piped());
 
